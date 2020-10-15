@@ -31,5 +31,18 @@ class ReservationController extends AbstractController {
             'reservations' => $reservations
         ]);
     }
+
+    /**
+     * @Route("/admin/reservations/jour", name="admin.reservation.listDay")
+     * @return Response
+     */
+    public function listDay()
+    {
+        $reservations = $this->repository->findAllDayConfirm();
+        return $this->render('admin/reservation/listDay.html.twig', [
+            'current_menu' => 'reservation.listDay',
+            'reservations' => $reservations
+        ]);
+    }
     
 }

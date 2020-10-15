@@ -5,7 +5,7 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav">
-			<a class="nav-link disable" href="#">Résas du jour</a>
+			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.listDay' %}active{% endif %}" href="{{ path('admin.reservation.listDay') }}">Résas du jour</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.list' %}active{% endif %}" href="{{ path('admin.reservation.listAll') }}">Toutes les résas</a>
 			<a class="nav-link disable" href="#">Gestion</a>
 			<a class="nav-link disable" href="#">Historique</a>

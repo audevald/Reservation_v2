@@ -20,13 +20,27 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Reservation[]
+     * @return Reservation[] retourne un tableau de toutes les réservations confirmées
      */
     public function findAllConfirm()
     {
         return $this->createQueryBuilder('r')
             ->where('r.confirm = true')
             ->andWhere('r.date >= :today')
+            ->setParameter('today',new \DateTime('today'))
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Reservation[] retourne un tableau des réservations du jour confirmées
+     */
+    public function findAllDayConfirm()
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.confirm = true')
+            ->andWhere('r.date = :today')
             ->setParameter('today',new \DateTime('today'))
             ->orderBy('r.date', 'ASC')
             ->getQuery()
