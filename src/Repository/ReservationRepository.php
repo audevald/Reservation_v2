@@ -34,14 +34,38 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Reservation[] retourne un tableau des réservations du jour confirmées
+     * @return Reservation[] retourne un tableau des réservations du jour confirmées au service du midi
      */
-    public function findAllDayConfirm()
+    public function findAllDayLunchConfirm()
     {
+        $min = date('11:00');
+        $max = date('16:00');
         return $this->createQueryBuilder('r')
             ->where('r.confirm = true')
             ->andWhere('r.date = :today')
+            ->andwhere('r.time BETWEEN :min AND :max')
             ->setParameter('today',new \DateTime('today'))
+            ->setParameter('min', $min) 
+            ->setParameter('max', $max)  
+            ->orderBy('r.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Reservation[] retourne un tableau des réservations du jour confirmées au service du soir
+     */
+    public function findAllDayEveningConfirm()
+    {
+        $min = date('18:00');
+        $max = date('23:00');
+        return $this->createQueryBuilder('r')
+            ->where('r.confirm = true')
+            ->andWhere('r.date = :today')
+            ->andwhere('r.time BETWEEN :min AND :max')
+            ->setParameter('today',new \DateTime('today'))
+            ->setParameter('min', $min) 
+            ->setParameter('max', $max)  
             ->orderBy('r.date', 'ASC')
             ->getQuery()
             ->getResult();

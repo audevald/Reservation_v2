@@ -5,6 +5,10 @@
 {% block body %}
     {{ include('navbar.html.twig') }}
     <div class="container mt-4">
-        Page d'accueil
+    {% if app.user %}
+        Menu du Tableau de bord. 
+    {% else %}
+        Veuillez vous connecter pour accèder au tableau de bord.
+    {% endif %}
     </div>
 {% endblock %}

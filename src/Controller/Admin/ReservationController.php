@@ -33,14 +33,27 @@ class ReservationController extends AbstractController {
     }
 
     /**
-     * @Route("/admin/reservations/jour", name="admin.reservation.listDay")
+     * @Route("/admin/reservations/midi", name="admin.reservation.listDayLunch")
      * @return Response
      */
-    public function listDay()
+    public function listDayLunch()
     {
-        $reservations = $this->repository->findAllDayConfirm();
-        return $this->render('admin/reservation/listDay.html.twig', [
-            'current_menu' => 'reservation.listDay',
+        $reservations = $this->repository->findAllDayLunchConfirm();
+        return $this->render('admin/reservation/listDayLunch.html.twig', [
+            'current_menu' => 'reservation.listDayLunch',
+            'reservations' => $reservations
+        ]);
+    }
+
+    /**
+     * @Route("/admin/reservations/soir", name="admin.reservation.listDayEvening")
+     * @return Response
+     */
+    public function listDayEvening()
+    {
+        $reservations = $this->repository->findAllDayEveningConfirm();
+        return $this->render('admin/reservation/listDayEvening.html.twig', [
+            'current_menu' => 'reservation.listDayEvening',
             'reservations' => $reservations
         ]);
     }
