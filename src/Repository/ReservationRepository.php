@@ -20,14 +20,15 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Reservation[] retourne un tableau de toutes les réservations confirmées
+     * @return Reservation[] retourne un tableau de toutes les réservations confirmées ou non
      */
-    public function findAllConfirm()
+    public function findAllResa($confirm)
     {
         return $this->createQueryBuilder('r')
-            ->where('r.confirm = true')
+            ->where('r.confirm = :confirm')
             ->andWhere('r.date >= :today')
             ->setParameter('today',new \DateTime('today'))
+            ->setParameter('confirm', $confirm)
             ->orderBy('r.date', 'ASC')
             ->getQuery()
             ->getResult();

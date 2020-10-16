@@ -20,15 +20,17 @@ class ReservationController extends AbstractController {
     }
 
     /**
-     * @Route("/admin/reservations/toutes", name="admin.reservation.listAll")
+     * @Route("/admin/reservations/gestion", name="admin.reservation.gestion")
      * @return Response
      */
-    public function listAll()
+    public function listsGestion()
     {
-        $reservations = $this->repository->findAllConfirm();
-        return $this->render('admin/reservation/listAll.html.twig', [
-            'current_menu' => 'reservation.list',
-            'reservations' => $reservations
+        $confirmed = $this->repository->findAllResa(true);
+        $unconfirmed = $this->repository->findAllResa(false);
+        return $this->render('admin/reservation/gestion.html.twig', [
+            'current_menu' => 'reservation.gestion',
+            'confirmed' => $confirmed,
+            'unconfirmed' => $unconfirmed
         ]);
     }
 

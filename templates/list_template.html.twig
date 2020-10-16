@@ -1,0 +1,10 @@
+<li class="list-group-item">
+	{{ reservation.date|date("d/m/Y") }}
+	{{ reservation.time|date("H:i") }}
+	-
+	{{ reservation.nbClient }}
+	client{% if reservation.nbClient > 1 %}s{% endif %}
+	-
+	{{ reservation.name }}
+	({{ reservation.phone }})
+</li>
