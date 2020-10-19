@@ -70,32 +70,15 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
-    // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Query retourne la requête pour l'historique des réservations
+     */
+    public function findAllHistoryQuery(): Query
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+            ->where('r.date < :today')
+            ->setParameter('today',new \DateTime('today'))
+            ->orderBy('r.date', 'DESC')
+            ->getQuery();
+    }    
 }

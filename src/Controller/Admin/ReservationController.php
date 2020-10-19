@@ -85,5 +85,22 @@ class ReservationController extends AbstractController {
             'reservations' => $reservations
         ]);
     }
+
+    /**
+     * @Route("/admin/reservations/historique", name="admin.reservation.history")
+     * @return Response
+     */
+    public function listHistory(Request $request)
+    {
+        $reservations = $this->paginator->paginate(
+            $this->repository->findAllHistoryQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+        return $this->render('admin/reservation/listHistory.html.twig', [
+            'current_menu' => 'reservation.history',
+            'reservations' => $reservations
+        ]);
+    }
     
 }

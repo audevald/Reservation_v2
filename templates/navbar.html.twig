@@ -9,7 +9,7 @@
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.listDayLunch' %}active{% endif %}" href="{{ path('admin.reservation.listDayLunch') }}">Résas du Midi</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.listDayEvening' %}active{% endif %}" href="{{ path('admin.reservation.listDayEvening') }}">Résas du Soir</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.gestion' %}active{% endif %}" href="{{ path('admin.reservation.gestion') }}">Gestion</a>
-			<a class="nav-link disable" href="#">Historique</a>
+			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.history' %}active{% endif %}" href="{{ path('admin.reservation.history') }}">Historique</a>
 		</div>    
     <div class="navbar-nav">
 			<a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
