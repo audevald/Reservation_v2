@@ -30,7 +30,8 @@ class ReservationRepository extends ServiceEntityRepository
             ->andWhere('r.date >= :today')
             ->setParameter('today',new \DateTime('today'))
             ->setParameter('confirm', $confirm)
-            ->orderBy('r.date', 'ASC')
+            ->addOrderBy('r.date', 'ASC')
+            ->addOrderBy('r.time', 'ASC')
             ->getQuery();
     }
 
@@ -48,7 +49,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('today',new \DateTime('today'))
             ->setParameter('min', $min) 
             ->setParameter('max', $max)  
-            ->orderBy('r.date', 'ASC')
+            ->orderBy('r.time', 'ASC')
             ->getQuery();
     }
 
@@ -66,7 +67,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('today',new \DateTime('today'))
             ->setParameter('min', $min) 
             ->setParameter('max', $max)  
-            ->orderBy('r.date', 'ASC')
+            ->orderBy('r.time', 'ASC')
             ->getQuery();
     }
 
