@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Reservation;
+use App\Form\ReservationType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +24,17 @@ class ReservationController extends AbstractController {
      */
     private $paginator;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
 
-    public function __construct(ReservationRepository $repository, PaginatorInterface $paginator)
+
+    public function __construct(ReservationRepository $repository, PaginatorInterface $paginator, EntityManagerInterface $em)
     {
         $this->repository = $repository;
         $this->paginator = $paginator;
+        $this->em = $em;
     }
 
     /**
@@ -100,6 +109,26 @@ class ReservationController extends AbstractController {
         return $this->render('admin/reservation/listHistory.html.twig', [
             'current_menu' => 'reservation.history',
             'reservations' => $reservations
+        ]);
+    }
+
+    /**
+     * @Route("/admin/reservations/ajouter", name="admin.reservation.new")
+     */
+    public function new(Request $request)
+    {
+        $reservation = new Reservation();
+        $form = $this->createForm(ReservationType::class, $reservation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($reservation);
+            $this->em->flush();
+            return $this->redirectToRoute('admin.reservation.gestion');
+        }
+
+        return $this->render('admin/reservation/new.html.twig', [
+            'current_menu' => 'reservation.new',
+            'form' => $form->createView()
         ]);
     }
     

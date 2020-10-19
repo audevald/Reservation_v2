@@ -15,9 +15,7 @@
 					{{ reservation.time|date("H:i") }}
 					-
 					{{ reservation.nbClient }}
-					client
-					{% if reservation.nbClient > 1 %}s
-					{% endif %}
+					client{% if reservation.nbClient > 1 %}s{% endif %}
 					-
 					{{ reservation.name }}
 					({{ reservation.phone }})
