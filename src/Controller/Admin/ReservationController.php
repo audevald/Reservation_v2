@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Repository\ReservationRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,19 +16,35 @@ class ReservationController extends AbstractController {
      */
     private $repository;
 
-    public function __construct(ReservationRepository $repository)
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+
+    public function __construct(ReservationRepository $repository, PaginatorInterface $paginator)
     {
         $this->repository = $repository;
+        $this->paginator = $paginator;
     }
 
     /**
      * @Route("/admin/reservations/gestion", name="admin.reservation.gestion")
      * @return Response
      */
-    public function listsGestion()
+    public function listsGestion(Request $request)
     {
-        $confirmed = $this->repository->findAllResa(true);
-        $unconfirmed = $this->repository->findAllResa(false);
+        $confirmed = $this->paginator->paginate(
+            $this->repository->findAllResaQuery(true),
+            $request->query->getInt('page', 1),
+            10
+        );
+        $unconfirmed = $this->paginator->paginate(
+            $this->repository->findAllResaQuery(false),
+            $request->query->getInt('otherPage', 1),
+            10,
+            ['pageParameterName' => 'otherPage']
+        );
         return $this->render('admin/reservation/gestion.html.twig', [
             'current_menu' => 'reservation.gestion',
             'confirmed' => $confirmed,
@@ -38,9 +56,13 @@ class ReservationController extends AbstractController {
      * @Route("/admin/reservations/midi", name="admin.reservation.listDayLunch")
      * @return Response
      */
-    public function listDayLunch()
+    public function listDayLunch(Request $request)
     {
-        $reservations = $this->repository->findAllDayLunchConfirm();
+        $reservations = $this->paginator->paginate(
+            $this->repository->findAllDayLunchConfirmQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('admin/reservation/listDayLunch.html.twig', [
             'current_menu' => 'reservation.listDayLunch',
             'reservations' => $reservations
@@ -51,9 +73,13 @@ class ReservationController extends AbstractController {
      * @Route("/admin/reservations/soir", name="admin.reservation.listDayEvening")
      * @return Response
      */
-    public function listDayEvening()
+    public function listDayEvening(Request $request)
     {
-        $reservations = $this->repository->findAllDayEveningConfirm();
+        $reservations = $this->paginator->paginate(
+            $this->repository->findAllDayEveningConfirmQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('admin/reservation/listDayEvening.html.twig', [
             'current_menu' => 'reservation.listDayEvening',
             'reservations' => $reservations

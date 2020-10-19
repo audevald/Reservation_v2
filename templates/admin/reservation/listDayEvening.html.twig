@@ -24,5 +24,8 @@
 				</li>
 			{% endfor %}
 		</ul>
+		<div class="pagination d-flex justify-content-center mt-4">
+			{{ knp_pagination_render(reservations) }}
+		</div>
 	</div>
 {% endblock %}

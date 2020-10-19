@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\Reservation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,9 +21,9 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Reservation[] retourne un tableau de toutes les réservations confirmées ou non
+     * @return Query retourne la requête pour toutes les réservations confirmées ou non
      */
-    public function findAllResa($confirm)
+    public function findAllResaQuery($confirm): Query
     {
         return $this->createQueryBuilder('r')
             ->where('r.confirm = :confirm')
@@ -30,14 +31,13 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('today',new \DateTime('today'))
             ->setParameter('confirm', $confirm)
             ->orderBy('r.date', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     /**
-     * @return Reservation[] retourne un tableau des réservations du jour confirmées au service du midi
+     * @return Query retourne la requ$ete pour les réservations du jour confirmées au service du midi
      */
-    public function findAllDayLunchConfirm()
+    public function findAllDayLunchConfirmQuery(): Query
     {
         $min = date('11:00');
         $max = date('16:00');
@@ -49,14 +49,13 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('min', $min) 
             ->setParameter('max', $max)  
             ->orderBy('r.date', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     /**
-     * @return Reservation[] retourne un tableau des réservations du jour confirmées au service du soir
+     * @return Query retourne la requête pour les réservations du jour confirmées au service du soir
      */
-    public function findAllDayEveningConfirm()
+    public function findAllDayEveningConfirmQuery(): Query
     {
         $min = date('18:00');
         $max = date('23:00');
@@ -68,8 +67,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('min', $min) 
             ->setParameter('max', $max)  
             ->orderBy('r.date', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     // /**
