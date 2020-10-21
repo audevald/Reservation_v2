@@ -11,7 +11,8 @@
 		({{ reservation.phone }})
 	</div>
 	<div class="col-1">
-		{% if reservation.confirm == false %}<i class="fas fa-exclamation text-warning"></i>{% elseif reservation.confirm == true %}<i class="fas fa-check text-success"></i>{% endif %}
+		{% if reservation.confirm == false %}<a class="js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id}) }}"><i class="fas fa-exclamation text-warning"></i></a>
+		{% elseif reservation.confirm == true %}<i class="fas fa-check text-success"></i>{% endif %}
 	</div>
 </div>
 	

@@ -10,6 +10,20 @@ import './styles/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
-global.$ = global.jQuery = $;
+
+function onClickBtnConfirm(event) {
+    event.preventDefault();
+
+    const url = this.href;
+    
+    axios.get(url).then(function (response) {
+        console.log(response)
+        window.location.reload() // TODO ajouter une mise à jour des données automatique
+    })
+}
+
+$('.js-confirm').on('click', onClickBtnConfirm)
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
+
+

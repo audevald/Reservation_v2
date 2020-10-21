@@ -131,5 +131,31 @@ class ReservationController extends AbstractController {
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * Undocumented function
+     *
+     * @Route("admin/reservations/{id}/confirm", name="reservation.confirm")
+     * @return Response
+     */
+    public function confirm(Reservation $reservation): Response
+    {
+        if (!$reservation->getConfirm()) {
+            $reservation->setConfirm(true);
+            $this->em->persist($reservation);
+            $this->em->flush();
+            return $this->json([
+                'code' => 200,
+                'message' => 'Réservation bien confirmée'
+            ], 200);
+        }
+        $reservation->setConfirm(false);
+        $this->em->persist($reservation);
+        $this->em->flush();
+        return $this->json([
+            'code' => 200, 
+            'message' => 'Confirmation de la réservation annulée'
+        ], 200);
+    }
     
 }

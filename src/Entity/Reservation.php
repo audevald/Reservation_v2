@@ -45,7 +45,7 @@ class Reservation
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $confirm = false;
+    public $confirm = false;
 
     public function getId(): ?int
     {
