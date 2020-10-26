@@ -1,0 +1,15 @@
+<li class="list-group-item">
+<div class="row d-flex-inline">
+	<div class="col-11">
+		{{ reservation.date|date("d/m/Y") }}
+		{{ reservation.time|date("H:i") }}
+		-
+		{{ reservation.nbClient }}
+		client{% if reservation.nbClient > 1 %}s{% endif %}
+		-
+		{{ reservation.name }}
+		({{ reservation.phone }})
+	</div>
+</div>
+	
+</li>
