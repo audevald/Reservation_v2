@@ -1,6 +1,6 @@
 <li class="list-group-item">
 <div class="row d-flex-inline">
-	<div class="col-11">
+	<div class="col-10">
 		{{ reservation.time|date("H:i") }}
 		-
 		{{ reservation.nbClient }}
@@ -9,8 +9,10 @@
 		{{ reservation.name }}
 		({{ reservation.phone }})
 	</div>
-	<div class="col-1">
-		<a class="js-arrived" href="{{ path('reservation.arrived', {'id': reservation.id}) }}"><i class="fas fa-utensils {% if reservation.clientArrived %}text-success{% else %}text-dark{% endif %}"></i></a>
+	<div class="col-2 d-flex justify-content-center">
+		<a class="js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}"><i class="fas fa-utensils {% if reservation.clientArrived %}text-success{% else %}text-dark{% endif %}"></i></a>
+		{% if reservation.clientArrived %}<span class="js-reservation-state text-success">A table</span>
+		{% else %}<span class="js-reservation-state text-dark">En attente</span>{% endif %}
 	</div>
 </div>
 	

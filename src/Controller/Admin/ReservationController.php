@@ -172,7 +172,7 @@ class ReservationController extends AbstractController {
             $this->em->flush();
             return $this->json([
                 'code' => 200,
-                'message' => 'Clients à table'
+                'message' => 'A table'
             ], 200);
         }
         $reservation->setClientArrived(false);
@@ -180,7 +180,7 @@ class ReservationController extends AbstractController {
         $this->em->flush();
         return $this->json([
             'code' => 200,
-            'message' => 'Clients pas à table'
+            'message' => 'En attente'
         ], 200);
     }
 }

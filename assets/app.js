@@ -27,11 +27,18 @@ function onClickBtnArrived(event) {
 
     const url = this.href;
     const icone = this.querySelector('i')
+    const spanResa = document.querySelector('span.js-reservation-state')
 
     axios.get(url).then(function (response) {
-        console.log(response)
-        if (icone.classList.contains('text-dark')) icone.classList.replace('text-dark', 'text-success')
-        else icone.classList.replace('text-success', 'text-dark')
+        if (icone.classList.contains('text-dark')) {
+            icone.classList.replace('text-dark', 'text-success')
+            spanResa.textContent = response.data.message
+            spanResa.classList.replace('text-dark', 'text-success')
+        } else {
+            icone.classList.replace('text-success', 'text-dark')
+            spanResa.textContent = response.data.message
+            spanResa.classList.replace('text-success', 'text-dark')
+        }
     })
 }
 
