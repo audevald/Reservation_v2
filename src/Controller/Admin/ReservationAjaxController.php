@@ -79,4 +79,30 @@ class ReservationAjaxController extends AbstractController {
             'message' => 'En attente'
         ], 200);
     }
+
+    /**
+     * Définie si la réservation est annulée ou non
+     *
+     * @Route("admin/reservations/{id}/cancel", name="reservation.cancel")
+     * @return Response
+     */
+    public function cancel(Reservation $reservation): Response
+    {
+        if (!$reservation->getCancel()) {
+            $reservation->setCancel(true);
+            $this->em->persist($reservation);
+            $this->em->flush();
+            return $this->json([
+                'code' => 200,
+                'message' => 'Réservation bien annulée'
+            ], 200);
+        }
+        $reservation->setCancel(false);
+        $this->em->persist($reservation);
+        $this->em->flush();
+        return $this->json([
+            'code' => 200, 
+            'message' => 'Réservation plus annulée'
+        ], 200);
+    }
 }

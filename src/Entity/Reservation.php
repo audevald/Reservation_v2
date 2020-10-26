@@ -52,6 +52,11 @@ class Reservation
      */
     private $clientArrived;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $cancel = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Reservation
     public function setClientArrived(?bool $clientArrived): self
     {
         $this->clientArrived = $clientArrived;
+
+        return $this;
+    }
+
+    public function getCancel(): ?bool
+    {
+        return $this->cancel;
+    }
+
+    public function setCancel(?bool $cancel): self
+    {
+        $this->cancel = $cancel;
 
         return $this;
     }

@@ -22,6 +22,24 @@ function onClickBtnConfirm(event) {
     })
 }
 
+function onClickBtnCancel(event) {
+    event.preventDefault();
+
+    const url = this.href;
+    const icone = this.querySelector('i')
+    const button = this
+    
+    axios.get(url).then(function (response) {
+        if(button.classList.contains('btn-danger')) {
+            icone.classList.replace('fa-ban', 'fa-check')
+            button.classList.replace('btn-danger', 'btn-success')
+        } else {
+            icone.classList.replace('fa-check', 'fa-ban')
+            button.classList.replace('btn-success', 'btn-danger')
+        }
+    })
+}
+
 function onClickBtnArrived(event) {
     event.preventDefault();
 
@@ -45,6 +63,8 @@ function onClickBtnArrived(event) {
 $('.js-confirm').on('click', onClickBtnConfirm)
 
 $('.js-arrived').on('click', onClickBtnArrived)
+
+$('.js-cancel').on('click', onClickBtnCancel)
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
