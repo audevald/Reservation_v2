@@ -47,6 +47,11 @@ class Reservation
      */
     public $confirm = false;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $clientArrived;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Reservation
     public function setConfirm(?bool $confirm): self
     {
         $this->confirm = $confirm;
+
+        return $this;
+    }
+
+    public function getClientArrived(): ?bool
+    {
+        return $this->clientArrived;
+    }
+
+    public function setClientArrived(?bool $clientArrived): self
+    {
+        $this->clientArrived = $clientArrived;
 
         return $this;
     }

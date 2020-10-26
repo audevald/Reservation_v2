@@ -133,7 +133,7 @@ class ReservationController extends AbstractController {
     }
 
     /**
-     * Undocumented function
+     * Définie si la réservation est confirmée ou non
      *
      * @Route("admin/reservations/{id}/confirm", name="reservation.confirm")
      * @return Response
@@ -158,4 +158,29 @@ class ReservationController extends AbstractController {
         ], 200);
     }
     
+    /**
+     * Définie si les clients sont arrivés ou pas
+     *
+     * @Route("admin/reservations/jour/{id}/arrived", name="reservation.arrived")
+     * @return Response
+     */
+    public function arrived(Reservation $reservation): Response
+    {
+        if (!$reservation->getClientArrived()) {
+            $reservation->setClientArrived(true);
+            $this->em->persist($reservation);
+            $this->em->flush();
+            return $this->json([
+                'code' => 200,
+                'message' => 'Clients à table'
+            ], 200);
+        }
+        $reservation->setClientArrived(false);
+        $this->em->persist($reservation);
+        $this->em->flush();
+        return $this->json([
+            'code' => 200,
+            'message' => 'Clients pas à table'
+        ], 200);
+    }
 }

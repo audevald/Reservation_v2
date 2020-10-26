@@ -1,0 +1,17 @@
+<li class="list-group-item">
+<div class="row d-flex-inline">
+	<div class="col-11">
+		{{ reservation.time|date("H:i") }}
+		-
+		{{ reservation.nbClient }}
+		client{% if reservation.nbClient > 1 %}s{% endif %}
+		-
+		{{ reservation.name }}
+		({{ reservation.phone }})
+	</div>
+	<div class="col-1">
+		<a class="js-arrived" href="{{ path('reservation.arrived', {'id': reservation.id}) }}"><i class="fas fa-utensils {% if reservation.clientArrived %}text-success{% else %}text-dark{% endif %}"></i></a>
+	</div>
+</div>
+	
+</li>

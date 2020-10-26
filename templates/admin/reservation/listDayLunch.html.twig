@@ -11,15 +11,7 @@
 		</div>
 		<ul class="list-group">
 			{% for reservation in reservations %}
-				<li class="list-group-item">
-					{{ reservation.time|date("H:i") }}
-					-
-					{{ reservation.nbClient }}
-					client{% if reservation.nbClient > 1 %}s{% endif %}
-					-
-					{{ reservation.name }}
-					({{ reservation.phone }})
-				</li>
+				{{ include('list_template_day.html.twig') }}
 			{% endfor %}
 		</ul>
 		<div class="pagination d-flex justify-content-center mt-4">

@@ -22,7 +22,22 @@ function onClickBtnConfirm(event) {
     })
 }
 
+function onClickBtnArrived(event) {
+    event.preventDefault();
+
+    const url = this.href;
+    const icone = this.querySelector('i')
+
+    axios.get(url).then(function (response) {
+        console.log(response)
+        if (icone.classList.contains('text-dark')) icone.classList.replace('text-dark', 'text-success')
+        else icone.classList.replace('text-success', 'text-dark')
+    })
+}
+
 $('.js-confirm').on('click', onClickBtnConfirm)
+
+$('.js-arrived').on('click', onClickBtnArrived)
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
