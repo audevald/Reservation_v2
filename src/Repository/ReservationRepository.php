@@ -44,6 +44,7 @@ class ReservationRepository extends ServiceEntityRepository
         $max = date('16:00');
         return $this->createQueryBuilder('r')
             ->where('r.confirm = true')
+            ->andWhere('r.cancel = false')
             ->andWhere('r.date = :today')
             ->andwhere('r.time BETWEEN :min AND :max')
             ->setParameter('today',new \DateTime('today'))
@@ -61,7 +62,8 @@ class ReservationRepository extends ServiceEntityRepository
         $min = date('18:00');
         $max = date('23:00');
         return $this->createQueryBuilder('r')
-            ->where('r.confirm = true')
+            ->where('r.confirm = true')            
+            ->andWhere('r.cancel = false')
             ->andWhere('r.date = :today')
             ->andwhere('r.time BETWEEN :min AND :max')
             ->setParameter('today',new \DateTime('today'))
