@@ -1,6 +1,6 @@
 <li class="list-group-item">
-<div class="row d-flex-inline">
-	<div class="col-10">
+<div class="row d-flex-inline align-items-center">
+	<div class="col-9">
 		{{ reservation.time|date("H:i") }}
 		-
 		{{ reservation.nbClient }}
@@ -9,10 +9,14 @@
 		{{ reservation.name }}
 		({{ reservation.phone }})
 	</div>
-	<div class="col-2 d-flex justify-content-center">
-		<a class="js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}"><i class="fas fa-utensils {% if reservation.clientArrived %}text-success{% else %}text-dark{% endif %}"></i></a>
-		{% if reservation.clientArrived %}<span class="js-reservation-state text-success">A table</span>
-		{% else %}<span class="js-reservation-state text-dark">En attente</span>{% endif %}
+	<div class="col-3 d-flex justify-content-end align-items-center">
+	<div class="btn-group">
+		<a class="btn {% if reservation.clientArrived %}btn-success{% else %}btn-secondary{% endif %} js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}" style="text-decoration:none;">
+	<span class="js-reservation-state">{% if reservation.clientArrived %}A table{% else %}En attente{% endif %}</span>
+		<i class="fas fa-utensils mr-2"></i>		
+		</a>
+		<button class="btn btn-danger" href=""><i class="far fa-trash-alt"></i></button>
+	</div>
 	</div>
 </div>
 	
