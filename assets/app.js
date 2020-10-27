@@ -40,14 +40,24 @@ function onClickBtnCancel(event) {
     })
 }
 
+function onClickBtnCancelDay (event) {
+    event.preventDefault()
+
+    const url = this.href
+
+    axios.get(url).then(function (response) {
+        const liId = 'reservation-' + response.data.reservationId
+        $("#" + liId).remove()
+    })
+}
+
 function onClickBtnRemove(event) {
     event.preventDefault()
 
     const url = this.href
     
     axios.get(url).then(function (response) {
-        let liId = 'reservation-' + response.data.reservationId
-        console.log(liId)
+        const liId = 'reservation-' + response.data.reservationId
         $("#" + liId).remove()
     })
 }
@@ -75,6 +85,8 @@ $('.js-confirm').on('click', onClickBtnConfirm)
 $('.js-arrived').on('click', onClickBtnArrived)
 
 $('.js-cancel').on('click', onClickBtnCancel)
+
+$('.js-cancel-day').on('click', onClickBtnCancelDay)
 
 $('.js-remove').on('click', onClickBtnRemove)
 

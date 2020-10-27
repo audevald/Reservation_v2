@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li class="list-group-item" id="reservation-{{reservation.id}}">
 <div class="row d-flex-inline align-items-center">
 	<div class="col-9">
 		{{ reservation.time|date("H:i") }}
@@ -15,7 +15,7 @@
 	<span class="js-reservation-state">{% if reservation.clientArrived %}A table{% else %}En attente{% endif %}</span>
 		<i class="fas fa-utensils mr-2"></i>		
 		</a>
-		<button class="btn btn-danger" href=""><i class="far fa-trash-alt"></i></button>
+		<a class="btn btn-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}" onclick="return confirm('Confirmer l\'annulation de la réservation ?');"><i class="fas fa-ban"></i></a>
 	</div>
 	</div>
 </div>
