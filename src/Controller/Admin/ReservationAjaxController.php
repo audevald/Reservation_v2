@@ -105,4 +105,22 @@ class ReservationAjaxController extends AbstractController {
             'message' => 'Réservation plus annulée'
         ], 200);
     }
+
+    /**
+     * Supprime la réservation
+     *
+     * @Route("admin/reservations/{id}/remove", name="reservation.remove")
+     * @return Response
+     */
+    public function remove(Reservation $reservation): Response
+    {
+        $reservationId = $reservation->getId();
+        $this->em->remove($reservation);
+        $this->em->flush();
+        return $this->json([
+            'code' => 200,
+            'reservationId' => $reservationId,
+            'message' => 'La réservation a bien été suppripmée'
+        ], 200);
+    }
 }

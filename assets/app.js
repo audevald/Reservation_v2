@@ -40,6 +40,18 @@ function onClickBtnCancel(event) {
     })
 }
 
+function onClickBtnRemove(event) {
+    event.preventDefault()
+
+    const url = this.href
+    
+    axios.get(url).then(function (response) {
+        let liId = 'reservation-' + response.data.reservationId
+        console.log(liId)
+        $("#" + liId).remove()
+    })
+}
+
 function onClickBtnArrived(event) {
     event.preventDefault();
 
@@ -63,6 +75,8 @@ $('.js-confirm').on('click', onClickBtnConfirm)
 $('.js-arrived').on('click', onClickBtnArrived)
 
 $('.js-cancel').on('click', onClickBtnCancel)
+
+$('.js-remove').on('click', onClickBtnRemove)
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
