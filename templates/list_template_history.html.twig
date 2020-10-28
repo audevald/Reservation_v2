@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li class="list-group-item" id="reservation-{{reservation.id}}">
 <div class="row d-flex-inline">
 	<div class="col-11">
 		{{ reservation.date|date("d/m/Y") }}
@@ -9,6 +9,9 @@
 		-
 		{{ reservation.name }}
 		({{ reservation.phone }})
+	</div>
+	<div class="col-1 d-flex justify-content-end">
+		<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}"><i class="far fa-trash-alt"></i></a>
 	</div>
 </div>
 	
