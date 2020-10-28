@@ -17,7 +17,7 @@
 		{% elseif reservation.confirm == true %}			
 			<a class="btn {% if reservation.cancel %}btn-danger{% else %}btn-success{% endif %} js-cancel" href="{{ path('reservation.cancel', {'id': reservation.id}) }}" ><i class="fas {% if reservation.cancel %}fa-ban{% else %}fa-check{% endif %}"></i></a>			
 		{% endif %}
-		<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}" onclick="return confirm('Êtes vous sur de vouloir supprimer cette réservation ?');"><i class="far fa-trash-alt"></i></a>
+		<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}"><i class="far fa-trash-alt"></i></a>
 		</div>
 	</div>
 </div>

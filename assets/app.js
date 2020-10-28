@@ -15,7 +15,7 @@ function onClickBtnConfirm(event) {
     event.preventDefault();
 
     const url = this.href;
-    
+
     axios.get(url).then(function (response) {
         console.log(response)
         window.location.reload() // TODO ajouter une mise à jour des données automatique
@@ -28,9 +28,9 @@ function onClickBtnCancel(event) {
     const url = this.href;
     const icone = this.querySelector('i')
     const button = this
-    
+
     axios.get(url).then(function (response) {
-        if(button.classList.contains('btn-danger')) {
+        if (button.classList.contains('btn-danger')) {
             icone.classList.replace('fa-ban', 'fa-check')
             button.classList.replace('btn-danger', 'btn-success')
         } else {
@@ -40,26 +40,28 @@ function onClickBtnCancel(event) {
     })
 }
 
-function onClickBtnCancelDay (event) {
+function onClickBtnCancelDay(event) {
     event.preventDefault()
+    if (confirm("Confirmer l'annulation de la réservation ?")) {
+        const url = this.href
 
-    const url = this.href
-
-    axios.get(url).then(function (response) {
-        const liId = 'reservation-' + response.data.reservationId
-        $("#" + liId).remove()
-    })
+        axios.get(url).then(function (response) {
+            const liId = 'reservation-' + response.data.reservationId
+            $("#" + liId).remove()
+        })
+    }
 }
 
 function onClickBtnRemove(event) {
     event.preventDefault()
+    if (confirm("Confirmer la suppréssion de la réservation ?")) {
+        const url = this.href
 
-    const url = this.href
-    
-    axios.get(url).then(function (response) {
-        const liId = 'reservation-' + response.data.reservationId
-        $("#" + liId).remove()
-    })
+        axios.get(url).then(function (response) {
+            const liId = 'reservation-' + response.data.reservationId
+            $("#" + liId).remove()
+        })
+    }
 }
 
 function onClickBtnArrived(event) {
