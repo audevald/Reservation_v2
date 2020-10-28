@@ -42,6 +42,7 @@ class ReservationAjaxController extends AbstractController {
             $this->em->flush();
             return $this->json([
                 'code' => 200,
+                'reservationId' => $reservation->getId(),
                 'message' => 'Réservation bien confirmée'
             ], 200);
         }

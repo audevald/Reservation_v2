@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Doctrine\ORM\Query;
 use App\Entity\Reservation;
+use App\Entity\ReservationSearch;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -21,18 +22,50 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Query retourne la requête pour toutes les réservations confirmées ou non
+     * @return Query retourne la requête pour toutes les réservations non confirmées
      */
-    public function findAllResaQuery($confirm): Query
+    public function findAllResaUnconfirmedQuery(): Query
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.confirm = :confirm')
+        $query =  $this->createQueryBuilder('r')
+            ->where('r.confirm = false')
             ->andWhere('r.date >= :today')
             ->setParameter('today',new \DateTime('today'))
-            ->setParameter('confirm', $confirm)
             ->addOrderBy('r.date', 'ASC')
-            ->addOrderBy('r.time', 'ASC')
-            ->getQuery();
+            ->addOrderBy('r.time', 'ASC');
+
+        return $query->getQuery();
+    }
+
+    /**
+     * @return Query retourne la requête pour toutes les réservations confirmées
+     */
+    public function findAllResaConfirmedQuery(ReservationSearch $search): Query
+    {
+        $query =  $this->createQueryBuilder('r')
+            ->where('r.confirm = true')
+            ->andWhere('r.date >= :today')
+            ->setParameter('today',new \DateTime('today'))
+            ->addOrderBy('r.date', 'ASC')
+            ->addOrderBy('r.time', 'ASC');
+        
+        if ($search->getName()) {
+            $query = $query
+                ->andWhere('r.name = :name')
+                ->setParameter('name', $search->getName());
+        }
+
+        if ($search->getDate()) {
+            $query = $query
+                ->andWhere('r.date = :date')
+                ->setParameter('date', $search->getDate());
+        }
+
+        if ($search->getCancel()) {
+            $query = $query
+                ->andWhere('r.cancel = true');
+        }
+
+        return $query->getQuery();
     }
 
     /**

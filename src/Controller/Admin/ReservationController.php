@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use App\Entity\ReservationSearch;
+use App\Form\ReservationSearchType;
 use App\Form\ReservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
@@ -38,26 +40,45 @@ class ReservationController extends AbstractController {
     }
 
     /**
-     * @Route("/admin/reservations/gestion", name="admin.reservation.gestion")
+     * @Route("/admin/reservations/confirmation", name="admin.reservation.confirmation")
      * @return Response
      */
-    public function listsGestion(Request $request)
+    public function listUnconfirm(Request $request)
     {
-        $confirmed = $this->paginator->paginate(
-            $this->repository->findAllResaQuery(true),
-            $request->query->getInt('page', 1),
-            10
-        );
-        $unconfirmed = $this->paginator->paginate(
-            $this->repository->findAllResaQuery(false),
+        $reservations = $this->paginator->paginate(
+            $this->repository->findAllResaUnconfirmedQuery(),
             $request->query->getInt('otherPage', 1),
             10,
             ['pageParameterName' => 'otherPage']
         );
+        return $this->render('admin/reservation/confirmation.html.twig', [
+            'current_menu' => 'reservation.confirmation',
+            'reservations' => $reservations
+        ]);
+    }
+
+    
+
+    /**
+     * @Route("/admin/reservations/gestion", name="admin.reservation.gestion")
+     * @return Response
+     */
+    public function listGestion(Request $request)
+    {
+        $search = new ReservationSearch();
+        $form = $this->createForm(ReservationSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $reservations = $this->paginator->paginate(
+            $this->repository->findAllResaConfirmedQuery($search),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('admin/reservation/gestion.html.twig', [
             'current_menu' => 'reservation.gestion',
-            'confirmed' => $confirmed,
-            'unconfirmed' => $unconfirmed
+            'reservations' => $reservations,
+            'form' => $form->createView()
         ]);
     }
 

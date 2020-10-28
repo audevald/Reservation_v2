@@ -17,8 +17,8 @@ function onClickBtnConfirm(event) {
     const url = this.href;
 
     axios.get(url).then(function (response) {
-        console.log(response)
-        window.location.reload() // TODO ajouter une mise à jour des données automatique
+        const liId = 'reservation-' + response.data.reservationId
+        $("#" + liId).remove()
     })
 }
 
