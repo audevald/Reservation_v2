@@ -3,12 +3,75 @@
 {% block title 'Accueil' %}
 
 {% block body %}
-    {{ include('navbar.html.twig') }}
-    <div class="container mt-4">
-    {% if app.user %}
-        Menu du Tableau de bord. 
-    {% else %}
-        Veuillez vous connecter pour accèder au tableau de bord.
-    {% endif %}
-    </div>
+	{{ include('navbar.html.twig') }}
+	<div class="container mt-4">
+		{% if app.user %}
+			<div class="container">
+				<div class="row d-flex align-items-center">
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.listDayLunch') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Résas du Midi</h5>
+									<p class="card-text">Consulter et gérer les réservations du jour ce midi.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.listDayEvening') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Résas du Soir</h5>
+									<p class="card-text">Consulter et gérer les réservations du jour ce soir.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.confirmation') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Réservation à confirmer</h5>
+									<p class="card-text">Confirmer en un simple click les réservations soumises par les clients.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.gestion') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Gestion des réservations</h5>
+									<p class="card-text">Supprimer, annuler, filtrer les réservations du jour et à venir.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.history') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Historique des réservations</h5>
+									<p class="card-text">Consulter l'historique des réservations passées.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-4 mb-3">
+						<a class="text-muted" href="{{ path('admin.reservation.new') }}" style="text-decoration:none">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Prendre une réservation</h5>
+									<p class="card-text">Ajouter simplement et rapidement une réservation suite à un appel téléphonique d'un client.</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			Veuillez vous connecter pour accèder au tableau de bord.
+		{% endif %}
+	</div>
 {% endblock %}
