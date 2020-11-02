@@ -3,11 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use App\Form\ReservationType;
 use App\Entity\ReservationSearch;
 use App\Form\ReservationSearchType;
-use App\Form\ReservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
+use App\Form\ReservationHistorySearchType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -122,14 +123,19 @@ class ReservationController extends AbstractController {
      */
     public function listHistory(Request $request)
     {
+        $search = new ReservationSearch();
+        $form = $this->createForm(ReservationHistorySearchType::class, $search);
+        $form->handleRequest($request);
+
         $reservations = $this->paginator->paginate(
-            $this->repository->findAllHistoryQuery(),
+            $this->repository->findAllHistoryQuery($search),
             $request->query->getInt('page', 1),
             10
         );
         return $this->render('admin/reservation/listHistory.html.twig', [
             'current_menu' => 'reservation.history',
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'form' => $form->createView()
         ]);
     }
 

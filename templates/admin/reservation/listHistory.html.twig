@@ -8,6 +8,21 @@
 		<div class="row d-flex justify-content-center">
 			<span class="pb-4">Historique des réservations</span>
 		</div>
+		<div class="container">
+						{{ form_start(form) }}
+							<div class="form-row ">
+								<div class="col-4">
+									{{ form_row(form.date) }}
+								</div>
+								<div class="col-4">
+									{{ form_row(form.name) }}
+								</div>
+								<div class="col-2">
+									<button class="btn btn-primary">Rechercher</button>
+								</div>
+							</div>
+						{{ form_end(form) }}
+					</div>
 		<ul class="list-group">
 			{% for reservation in reservations %}
 				{{ include('list_template_history.html.twig') }}
