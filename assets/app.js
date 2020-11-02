@@ -92,6 +92,12 @@ $('.js-cancel-day').on('click', onClickBtnCancelDay)
 
 $('.js-remove').on('click', onClickBtnRemove)
 
+$('.card').on('click', function () {
+    console.log('clique')
+    $(this).css('background-color', '#0275d8')
+    $(this).css('color', 'white')
+})
+
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
 
