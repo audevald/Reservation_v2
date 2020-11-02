@@ -8,6 +8,7 @@
 		<div class="navbar-nav">
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.listDayLunch' %}active{% endif %}" href="{{ path('admin.reservation.listDayLunch') }}">Résas du Midi</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.listDayEvening' %}active{% endif %}" href="{{ path('admin.reservation.listDayEvening') }}">Résas du Soir</a>
+			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.confirmation' %}active{% endif %}" href="{{ path('admin.reservation.confirmation') }}">A confirmer</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.gestion' %}active{% endif %}" href="{{ path('admin.reservation.gestion') }}">Gestion</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.history' %}active{% endif %}" href="{{ path('admin.reservation.history') }}">Historique</a>
 			<a class="nav-link {% if current_menu is defined and current_menu == 'reservation.new' %}active{% endif %}" href="{{ path('admin.reservation.new') }}">Ajouter une réservation</a>

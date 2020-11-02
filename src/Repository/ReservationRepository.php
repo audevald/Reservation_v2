@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use Doctrine\ORM\Query;
 use App\Entity\Reservation;
+use App\Entity\ReservationSearch;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -21,18 +22,50 @@ class ReservationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Query retourne la requête pour toutes les réservations confirmées ou non
+     * @return Query retourne la requête pour toutes les réservations non confirmées
      */
-    public function findAllResaQuery($confirm): Query
+    public function findAllResaUnconfirmedQuery(): Query
     {
-        return $this->createQueryBuilder('r')
-            ->where('r.confirm = :confirm')
+        $query =  $this->createQueryBuilder('r')
+            ->where('r.confirm = false')
             ->andWhere('r.date >= :today')
-            ->setParameter('today',new \DateTime('today'))
-            ->setParameter('confirm', $confirm)
+            ->setParameter('today', new \DateTime('today'))
             ->addOrderBy('r.date', 'ASC')
-            ->addOrderBy('r.time', 'ASC')
-            ->getQuery();
+            ->addOrderBy('r.time', 'ASC');
+
+        return $query->getQuery();
+    }
+
+    /**
+     * @return Query retourne la requête pour toutes les réservations confirmées
+     */
+    public function findAllResaConfirmedQuery(ReservationSearch $search): Query
+    {
+        $query =  $this->createQueryBuilder('r')
+            ->where('r.confirm = true')
+            ->andWhere('r.date >= :today')
+            ->setParameter('today', new \DateTime('today'))
+            ->addOrderBy('r.date', 'ASC')
+            ->addOrderBy('r.time', 'ASC');
+
+        if ($search->getName()) {
+            $query = $query
+                ->andWhere('r.name = :name')
+                ->setParameter('name', $search->getName());
+        }
+
+        if ($search->getDate()) {
+            $query = $query
+                ->andWhere('r.date = :date')
+                ->setParameter('date', $search->getDate());
+        }
+
+        if ($search->getCancel()) {
+            $query = $query
+                ->andWhere('r.cancel = true');
+        }
+
+        return $query->getQuery();
     }
 
     /**
@@ -44,11 +77,12 @@ class ReservationRepository extends ServiceEntityRepository
         $max = date('16:00');
         return $this->createQueryBuilder('r')
             ->where('r.confirm = true')
+            ->andWhere('r.cancel = false')
             ->andWhere('r.date = :today')
             ->andwhere('r.time BETWEEN :min AND :max')
-            ->setParameter('today',new \DateTime('today'))
-            ->setParameter('min', $min) 
-            ->setParameter('max', $max)  
+            ->setParameter('today', new \DateTime('today'))
+            ->setParameter('min', $min)
+            ->setParameter('max', $max)
             ->orderBy('r.time', 'ASC')
             ->getQuery();
     }
@@ -62,11 +96,12 @@ class ReservationRepository extends ServiceEntityRepository
         $max = date('23:00');
         return $this->createQueryBuilder('r')
             ->where('r.confirm = true')
+            ->andWhere('r.cancel = false')
             ->andWhere('r.date = :today')
             ->andwhere('r.time BETWEEN :min AND :max')
-            ->setParameter('today',new \DateTime('today'))
-            ->setParameter('min', $min) 
-            ->setParameter('max', $max)  
+            ->setParameter('today', new \DateTime('today'))
+            ->setParameter('min', $min)
+            ->setParameter('max', $max)
             ->orderBy('r.time', 'ASC')
             ->getQuery();
     }
@@ -74,12 +109,25 @@ class ReservationRepository extends ServiceEntityRepository
     /**
      * @return Query retourne la requête pour l'historique des réservations
      */
-    public function findAllHistoryQuery(): Query
+    public function findAllHistoryQuery(ReservationSearch $search): Query
     {
-        return $this->createQueryBuilder('r')
+        $query = $this->createQueryBuilder('r')
             ->where('r.date < :today')
-            ->setParameter('today',new \DateTime('today'))
-            ->orderBy('r.date', 'DESC')
-            ->getQuery();
-    }    
+            ->setParameter('today', new \DateTime('today'))
+            ->orderBy('r.date', 'DESC');
+
+        if ($search->getName()) {
+            $query = $query
+                ->andWhere('r.name = :name')
+                ->setParameter('name', $search->getName());
+        }
+
+        if ($search->getDate()) {
+            $query = $query
+                ->andWhere('r.date = :date')
+                ->setParameter('date', $search->getDate());
+        }
+
+        return $query->getQuery();
+    }
 }

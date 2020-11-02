@@ -1,0 +1,23 @@
+<li class="list-group-item" id="reservation-{{reservation.id}}">
+<div class="row d-flex-inline align-items-center">
+	<div class="col-9">
+		{{ reservation.time|date("H:i") }}
+		-
+		{{ reservation.nbClient }}
+		client{% if reservation.nbClient > 1 %}s{% endif %}
+		-
+		{{ reservation.name }}
+		({{ reservation.phone }})
+	</div>
+	<div class="col-3 d-flex justify-content-end align-items-center">
+	<div class="btn-group">
+		<a class="btn {% if reservation.clientArrived %}btn-success{% else %}btn-secondary{% endif %} js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}" style="text-decoration:none;">
+	<span class="js-reservation-state">{% if reservation.clientArrived %}A table{% else %}En attente{% endif %}</span>
+		<i class="fas fa-utensils mr-2"></i>		
+		</a>
+		<a class="btn btn-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}"><i class="fas fa-ban"></i></a>
+	</div>
+	</div>
+</div>
+	
+</li>
