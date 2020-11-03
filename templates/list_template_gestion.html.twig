@@ -1,25 +1,33 @@
 <li class="list-group-item" id="reservation-{{reservation.id}}">
-<div class="row d-flex-inline">
-	<div class="col-10 d-flex align-items-center">
-		{{ reservation.date|date("d/m/Y") }}
-		{{ reservation.time|date("H:i") }}
-		-
-		{{ reservation.nbClient }}
-		client{% if reservation.nbClient > 1 %}s{% endif %}
-		-
-		{{ reservation.name }}
-		({{ reservation.phone }})
-	</div>
-	<div class="col-2 d-flex align-items-center justify-content-end">
-		<div class="btn-group">
-		{% if reservation.confirm == false %}
-			<a class="btn btn-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id}) }}"><i class="fas fa-check"></i></a>			
-		{% elseif reservation.confirm == true %}			
-			<a class="btn {% if reservation.cancel %}btn-danger{% else %}btn-success{% endif %} js-cancel" href="{{ path('reservation.cancel', {'id': reservation.id}) }}" ><i class="fas {% if reservation.cancel %}fa-ban{% else %}fa-check{% endif %}"></i></a>			
-		{% endif %}
-		<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}"><i class="far fa-trash-alt"></i></a>
+	<div class="row d-flex-inline">
+		<div class="col-10 d-flex align-items-center">
+			{{ reservation.date|date("d/m/Y") }}
+			{{ reservation.time|date("H:i") }}
+			-
+			{{ reservation.nbClient }}
+			client{% if reservation.nbClient > 1 %}s{% endif %}
+			-
+			{{ reservation.name }}
+			({{ reservation.phone }})
+		</div>
+		<div class="col-2 d-flex align-items-center justify-content-end">
+			<div class="btn-group">
+				{% if reservation.confirm == false %}
+					<a class="btn btn-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id}) }}">
+						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+						<i class="fas fa-check"></i>
+					</a>
+				{% elseif reservation.confirm == true %}
+					<a class="btn {% if reservation.cancel %}btn-danger{% else %}btn-success{% endif %} js-cancel" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
+						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+						<i class="fas {% if reservation.cancel %}fa-ban{% else %}fa-check{% endif %}"></i>
+					</a>
+				{% endif %}
+				<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}">
+					<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+					<i class="far fa-trash-alt"></i>
+				</a>
+			</div>
 		</div>
 	</div>
-</div>
-	
 </li>

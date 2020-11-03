@@ -15,7 +15,10 @@
 	<span class="js-reservation-state">{% if reservation.clientArrived %}A table{% else %}En attente{% endif %}</span>
 		<i class="fas fa-utensils mr-2"></i>		
 		</a>
-		<a class="btn btn-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}"><i class="fas fa-ban"></i></a>
+		<a class="btn btn-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
+			<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+			<i class="fas fa-ban"></i>
+		</a>
 	</div>
 	</div>
 </div>
