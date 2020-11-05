@@ -5,31 +5,37 @@
 {% block body %}
 	{{ include('navbar.html.twig') }}
 	<div class="container mt-4">
-		<div class="row d-flex justify-content-center">
-			<span class="pb-4">Historique des réservations</span>
-		</div>
-		<div class="container">
-						{{ form_start(form) }}
-							<div class="form-row ">
-								<div class="col-4">
-									{{ form_row(form.date) }}
-								</div>
-								<div class="col-4">
-									{{ form_row(form.name) }}
-								</div>
-								<div class="col-2">
-									<button class="btn btn-primary">Rechercher</button>
-								</div>
-							</div>
-						{{ form_end(form) }}
+		<h4 class="text-center">Historique des réservations</h4>
+		<div class="row">
+			<div class="col-12 col-sm-9">
+				<ul class="list-group">
+					{% for reservation in reservations %}
+						{{ include('list_template_history.html.twig') }}
+					{% endfor %}
+				</ul>
+				<div class="pagination d-flex justify-content-center mt-4">
+					{{ knp_pagination_render(reservations) }}
+				</div>
+			</div>
+			<div class="col-12 col-sm-3">
+				<div class="container border p-4 bg-light">
+				<h4 class="text-center">Filtrer</h4>
+					{{ form_start(form) }}
+					<div class="form-row ">
+						<div class="col-12">
+							{{ form_row(form.date) }}
+						</div>
+						<div class="col-12">
+							{{ form_row(form.name) }}
+						</div>
+						<div class="col-12">
+							<button class="btn btn-secondary">Rechercher</button>
+						</div>
+
 					</div>
-		<ul class="list-group">
-			{% for reservation in reservations %}
-				{{ include('list_template_history.html.twig') }}
-			{% endfor %}
-		</ul>
-		<div class="pagination d-flex justify-content-center mt-4">
-			{{ knp_pagination_render(reservations) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
