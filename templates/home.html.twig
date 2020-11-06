@@ -3,12 +3,51 @@
 {% block title 'Accueil' %}
 
 {% block body %}
-    {{ include('navbar.html.twig') }}
-    <div class="container mt-4">
-    {% if app.user %}
-        Menu du Tableau de bord. 
-    {% else %}
-        Veuillez vous connecter pour accèder au tableau de bord.
-    {% endif %}
-    </div>
+	{{ include('navbar.html.twig') }}
+	<div class="container mt-4">
+		{% if app.user %}
+			<div class="container">
+				<div class="row d-flex align-items-center">
+					{{ include('card_home_template.html.twig', {
+                        title: 'Résas du midi', 
+                        description: 'Consulter et gérer les réservations du jour ce midi.',
+                        path: 'admin.reservation.listDayLunch'
+                        })
+                    }}
+                    {{ include('card_home_template.html.twig', {
+                        title: 'Résas du soir', 
+                        description: 'Consulter et gérer les réservations du jour ce soir.',
+                        path: 'admin.reservation.listDayEvening'
+                        })
+                    }}
+                    {{ include('card_home_template.html.twig', {
+                        title: 'Réservation à confirmer', 
+                        description: 'Confirmer en un simple click les réservations soumises par les clients.',
+                        path: 'admin.reservation.confirmation'
+                        })
+                    }}
+                    {{ include('card_home_template.html.twig', {
+                        title: 'Gestion des réservations', 
+                        description: 'Supprimer, annuler, filtrer les réservations du jour et à venir.',
+                        path: 'admin.reservation.gestion'
+                        })
+                    }}
+                    {{ include('card_home_template.html.twig', {
+                        title: 'Historique des réservations', 
+                        description: 'Consulter l\'historique des réservations passées.',
+                        path: 'admin.reservation.history'
+                        })
+                    }}
+                    {{ include('card_home_template.html.twig', {
+                        title: 'Prendre une réservation', 
+                        description: 'Ajouter simplement et rapidement une réservation suite à un appel téléphonique d\'un client.',
+                        path: 'admin.reservation.new'
+                        })
+                    }}
+				</div>
+			</div>
+		{% else %}
+			Veuillez vous connecter pour accèder au tableau de bord.
+		{% endif %}
+	</div>
 {% endblock %}

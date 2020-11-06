@@ -15,10 +15,17 @@ function onClickBtnConfirm(event) {
     event.preventDefault();
 
     const url = this.href;
+    const loader = this.querySelector('span')
+    const icone = this.querySelector('i')
+    icone.classList.add('d-none')
+    loader.classList.remove('d-none')
 
     axios.get(url).then(function (response) {
         const liId = 'reservation-' + response.data.reservationId
         $("#" + liId).remove()
+    }).catch(function () {
+        icone.classList.remove('d-none')
+        loader.classList.add('d-none')
     })
 }
 
@@ -28,8 +35,12 @@ function onClickBtnCancel(event) {
     const url = this.href;
     const icone = this.querySelector('i')
     const button = this
+    const loader = this.querySelector('span')
+    icone.classList.add('d-none')
+    loader.classList.remove('d-none')
 
     axios.get(url).then(function (response) {
+
         if (button.classList.contains('btn-danger')) {
             icone.classList.replace('fa-ban', 'fa-check')
             button.classList.replace('btn-danger', 'btn-success')
@@ -37,6 +48,12 @@ function onClickBtnCancel(event) {
             icone.classList.replace('fa-check', 'fa-ban')
             button.classList.replace('btn-success', 'btn-danger')
         }
+    }).then(function () {
+        loader.classList.add('d-none')
+        icone.classList.remove('d-none')
+    }).catch(function () {
+        icone.classList.remove('d-none')
+        loader.classList.add('d-none')
     })
 }
 
@@ -44,10 +61,17 @@ function onClickBtnCancelDay(event) {
     event.preventDefault()
     if (confirm("Confirmer l'annulation de la réservation ?")) {
         const url = this.href
+        const loader = this.querySelector('span')
+        const icone = this.querySelector('i')
+        icone.classList.add('d-none')
+        loader.classList.remove('d-none')
 
         axios.get(url).then(function (response) {
             const liId = 'reservation-' + response.data.reservationId
             $("#" + liId).remove()
+        }).catch(function () {
+            icone.classList.remove('d-none')
+            loader.classList.add('d-none')
         })
     }
 }
@@ -56,10 +80,17 @@ function onClickBtnRemove(event) {
     event.preventDefault()
     if (confirm("Confirmer la suppréssion de la réservation ?")) {
         const url = this.href
+        const loader = this.querySelector('span')
+        const icone = this.querySelector('i')
+        icone.classList.add('d-none')
+        loader.classList.remove('d-none')
 
         axios.get(url).then(function (response) {
             const liId = 'reservation-' + response.data.reservationId
             $("#" + liId).remove()
+        }).catch(function () {
+            icone.classList.remove('d-none')
+            loader.classList.add('d-none')
         })
     }
 }
@@ -91,6 +122,12 @@ $('.js-cancel').on('click', onClickBtnCancel)
 $('.js-cancel-day').on('click', onClickBtnCancelDay)
 
 $('.js-remove').on('click', onClickBtnRemove)
+
+$('.card').on('click', function () {
+    console.log('clique')
+    $(this).css('background-color', '#0275d8')
+    $(this).css('color', 'white')
+})
 
 console.log('Hello Webpack Encore! Edit me in assets/app.js');
 
