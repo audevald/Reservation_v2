@@ -57,6 +57,11 @@ class Reservation
      */
     private $cancel = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,18 @@ class Reservation
     public function setCancel(?bool $cancel): self
     {
         $this->cancel = $cancel;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

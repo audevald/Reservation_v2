@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Ajouter une réservation' %}
+
+{% block body %}
+	<div class="container d-flex align-items-center justify-content-center text-muted" style="height: 100vh">
+            <div class="jumbotron">
+                <p>Votre réservation pour <strong>{{ reservation.nbClient }} personne{% if reservation.nbClient > 1 %}s{% endif %}</strong> le <strong>{{ reservation.date|date("m/d/Y", "Europe/Paris") }}</strong> à <strong>{{ reservation.time|date("H:i") }}</strong> a bien été envoyée. Vous recevrez une confirmation sur l'email <strong>{{ reservation.email }}</strong></p>
+                <a href="{{ path('client.reservation.new') }}" class="btn btn-outline-secondary">Passer une autre réservation</a>
+            </div>
+        </div>
+{% endblock %}
