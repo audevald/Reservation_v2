@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ReservationAjaxController extends AbstractController {
+class ReservationAjaxController extends AbstractController
+{
 
     /**
      * @var ReservationRepository
@@ -33,10 +34,10 @@ class ReservationAjaxController extends AbstractController {
     /**
      * Définie si la réservation est confirmée ou non
      *
-     * @Route("admin/reservations/{id}/confirm", name="reservation.confirm")
+     * @Route("admin/reservations/{id}/confirm/mail={mail}", name="reservation.confirm")
      * @return Response
      */
-    public function confirm(Reservation $reservation, MailerInterface $mailer): Response
+    public function confirm(Reservation $reservation, int $mail, MailerInterface $mailer): Response
     {
         if (!$reservation->getConfirm()) {
             $reservation->setConfirm(true);
@@ -44,12 +45,14 @@ class ReservationAjaxController extends AbstractController {
             $this->em->flush();
 
             // TODO envoyer mail de confirmation au client
-            $email = (new Email())
-                ->from($_ENV['ADMIN_EMAIL'])
-                ->to($reservation->getEmail())
-                ->subject('Confirmation de votre réservation')
-                ->text('Votre réservation est confirmée.');
-            $mailer->send($email);
+            if ($mail == 1) {
+                $email = (new Email())
+                    ->from($_ENV['ADMIN_EMAIL'])
+                    ->to($reservation->getEmail())
+                    ->subject('Confirmation de votre réservation')
+                    ->text('Votre réservation est confirmée.');
+                $mailer->send($email);
+            }
 
             return $this->json([
                 'code' => 200,
@@ -61,11 +64,11 @@ class ReservationAjaxController extends AbstractController {
         $this->em->persist($reservation);
         $this->em->flush();
         return $this->json([
-            'code' => 200, 
+            'code' => 200,
             'message' => 'Confirmation de la réservation annulée'
         ], 200);
     }
-    
+
     /**
      * Définie si les clients sont arrivés ou pas
      *
@@ -114,7 +117,7 @@ class ReservationAjaxController extends AbstractController {
         $this->em->persist($reservation);
         $this->em->flush();
         return $this->json([
-            'code' => 200, 
+            'code' => 200,
             'message' => 'Réservation plus annulée'
         ], 200);
     }
