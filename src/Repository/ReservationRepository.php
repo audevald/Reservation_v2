@@ -113,6 +113,8 @@ class ReservationRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('r')
             ->where('r.date < :today')
+            ->andwhere('r.confirm = true')
+            ->andwhere('r.cancel != true')
             ->setParameter('today', new \DateTime('today'))
             ->orderBy('r.date', 'DESC');
 

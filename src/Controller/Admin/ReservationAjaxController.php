@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,12 +36,21 @@ class ReservationAjaxController extends AbstractController {
      * @Route("admin/reservations/{id}/confirm", name="reservation.confirm")
      * @return Response
      */
-    public function confirm(Reservation $reservation): Response
+    public function confirm(Reservation $reservation, MailerInterface $mailer): Response
     {
         if (!$reservation->getConfirm()) {
             $reservation->setConfirm(true);
             $this->em->persist($reservation);
             $this->em->flush();
+
+            // TODO envoyer mail de confirmation au client
+            $email = (new Email())
+                ->from($_ENV['ADMIN_EMAIL'])
+                ->to($reservation->getEmail())
+                ->subject('Confirmation de votre réservation')
+                ->text('Votre réservation est confirmée.');
+            $mailer->send($email);
+
             return $this->json([
                 'code' => 200,
                 'reservationId' => $reservation->getId(),
