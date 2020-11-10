@@ -48,14 +48,5 @@ class ReservationController extends AbstractController {
         return $this->render('client/reservation/new.html.twig', [
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/client/reservation/confirmation", name="client.reservation.confirmation")
-     */
-    public function result()
-    {
-
-    }
-    
+    }    
 }
