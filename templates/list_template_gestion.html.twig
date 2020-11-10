@@ -12,11 +12,11 @@
 		</div>
 		<div class="col-2 d-flex align-items-center justify-content-end">
 			<div class="btn-group">
-					<a class="btn {% if reservation.cancel %}btn-danger{% else %}btn-success{% endif %} js-cancel" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
+					<a class="btn {% if reservation.cancel %}btn-outline-danger{% else %}btn-outline-success{% endif %} js-cancel" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
 						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 						<i class="fas {% if reservation.cancel %}fa-ban{% else %}fa-check{% endif %}"></i>
 					</a>			
-				<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}">
+				<a class="btn btn-outline-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}">
 					<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 					<i class="far fa-trash-alt"></i>
 				</a>

@@ -60,12 +60,12 @@ function onClickBtnCancel(event) {
 
     axios.get(url).then(function (response) {
 
-        if (button.classList.contains('btn-danger')) {
+        if (button.classList.contains('btn-outline-danger')) {
             icone.classList.replace('fa-ban', 'fa-check')
-            button.classList.replace('btn-danger', 'btn-success')
+            button.classList.replace('btn-outline-danger', 'btn-outline-success')
         } else {
             icone.classList.replace('fa-check', 'fa-ban')
-            button.classList.replace('btn-success', 'btn-danger')
+            button.classList.replace('btn-outline-success', 'btn-outline-danger')
         }
     }).then(function () {
         loader.classList.add('d-none')
@@ -156,11 +156,11 @@ function onClickBtnArrived(event) {
     const button = this
 
     axios.get(url).then(function (response) {
-        if (button.classList.contains('btn-secondary')) {
-            button.classList.replace('btn-secondary', 'btn-success')
+        if (button.classList.contains('btn-outline-secondary')) {
+            button.classList.replace('btn-outline-secondary', 'btn-success')
             spanResa.textContent = response.data.message
         } else {
-            button.classList.replace('btn-success', 'btn-secondary')
+            button.classList.replace('btn-success', 'btn-outline-secondary')
             spanResa.textContent = response.data.message
         }
     })

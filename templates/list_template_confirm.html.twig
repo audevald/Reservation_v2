@@ -12,16 +12,16 @@
 		</div>
 		<div class="col-2 d-flex align-items-center justify-content-end">
 			<div class="btn-group">
-					<a class="btn btn-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id, 'mail': 1}) }}">
+					<a class="btn btn-outline-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id, 'mail': 1}) }}">
 						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 						<i class="fas fa-check"></i>
 						<i class="far fa-envelope mail"></i>
 					</a>
-					<a class="btn btn-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id, 'mail': 0}) }}">
+					<a class="btn btn-outline-warning js-confirm" href="{{ path('reservation.confirm', {'id': reservation.id, 'mail': 0}) }}">
 						<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 						<i class="fas fa-check"></i>
 					</a>
-				<a class="btn btn-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}">
+				<a class="btn btn-outline-danger js-remove" href="{{ path('reservation.remove', {'id': reservation.id}) }}">
 					<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 					<i class="far fa-trash-alt"></i>
 				</a>

@@ -11,11 +11,11 @@
 	</div>
 	<div class="col-3 d-flex justify-content-end align-items-center">
 	<div class="btn-group">
-		<a class="btn {% if reservation.clientArrived %}btn-success{% else %}btn-secondary{% endif %} js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}" style="text-decoration:none;">
+		<a class="btn {% if reservation.clientArrived %}btn-success{% else %}btn-outline-secondary{% endif %} js-arrived pr-1" href="{{ path('reservation.arrived', {'id': reservation.id}) }}" style="text-decoration:none;">
 	<span class="js-reservation-state">{% if reservation.clientArrived %}A table{% else %}En attente{% endif %}</span>
 		<i class="fas fa-utensils mr-2"></i>		
 		</a>
-		<a class="btn btn-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
+		<a class="btn btn-outline-danger js-cancel-day" href="{{ path('reservation.cancel', {'id': reservation.id}) }}">
 			<span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
 			<i class="fas fa-ban"></i>
 		</a>
