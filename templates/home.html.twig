@@ -47,7 +47,11 @@
 				</div>
 			</div>
 		{% else %}
-			Veuillez vous connecter pour accèder au tableau de bord.
+            {{ include('security/login.html.twig', {
+                error: '',
+                last_username: '',
+                password: ''
+            }) }}
 		{% endif %}
 	</div>
 {% endblock %}
